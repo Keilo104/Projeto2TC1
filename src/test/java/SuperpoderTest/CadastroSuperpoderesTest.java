@@ -6,6 +6,7 @@ import Pages.ListSuperpoderesPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -199,6 +200,24 @@ public class CadastroSuperpoderesTest {
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
+
+        @Nested
+        @DisplayName("Tests for UI")
+        class UI {
+
+            @Test
+            @DisplayName("Should home page link be visible and clickable even when screen is horizontally small")
+            void shouldHomePageLinkBeClickableWhenScreenIsSmall() {
+                SoftAssertions softly = new SoftAssertions();
+
+                driver.manage().window().setSize(new Dimension(500, 600));
+
+                softly.assertThat(page.returnToHomePageLinkIsDisplayed()).isTrue();
+                softly.assertThat(page.returnToHomePageLinkIsEnabled()).isTrue();
+
+                softly.assertAll();
             }
         }
     }
