@@ -5,7 +5,9 @@ import Pages.EditarSuperpoderesPage;
 import Pages.ListSuperpoderesPage;
 import Pages.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,7 +22,8 @@ public class EditarSuperpoderesTest {
     private WebDriverWait webDriverWait;
 
     private final String PAGE_URL = "https://site-tc1.vercel.app/";
-    private ListSuperpoderesPage page;
+    private ListSuperpoderesPage listPage;
+    private EditarSuperpoderesPage editPage;
 
     @BeforeEach
     void setup() {
@@ -29,7 +32,7 @@ public class EditarSuperpoderesTest {
         driver = new FirefoxDriver();
         driver.get(PAGE_URL);
 
-        page = new ListSuperpoderesPage(driver);
+        listPage = new ListSuperpoderesPage(driver);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -45,12 +48,7 @@ public class EditarSuperpoderesTest {
         @Test
         @DisplayName("Should path to home when clicking home link")
         void shouldPathToHome() {
-            cadastroSuperpoderFromFaker();
-
-            List<SuperpoderItemPage> superpoderes = page.getSuperpoderesItemPage();
-            superpoderes.getFirst().goToEditPage();
-
-            EditarSuperpoderesPage editPage = new EditarSuperpoderesPage(driver);
+            setupGoToEdit();
             editPage.returnToHomePage();
 
             assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
@@ -59,12 +57,7 @@ public class EditarSuperpoderesTest {
         @Test
         @DisplayName("Should path back to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
-            cadastroSuperpoderFromFaker();
-
-            List<SuperpoderItemPage> superpoderes = page.getSuperpoderesItemPage();
-            superpoderes.getFirst().goToEditPage();
-
-            EditarSuperpoderesPage editPage = new EditarSuperpoderesPage(driver);
+            setupGoToEdit();
             editPage.goToCadastro();
 
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
@@ -77,8 +70,43 @@ public class EditarSuperpoderesTest {
 
     }
 
+    @Nested
+    @DisplayName("Tests for UI")
+    class UI {
+
+        @Test
+        @DisplayName("Should home page link be visible and clickable even when screen is horizontally small")
+        void shouldHomePageLinkBeClickableWhenScreenIsSmall() {
+            SoftAssertions softly = new SoftAssertions();
+
+            setupGoToEdit();
+
+            driver.manage().window().setSize(new Dimension(500, 600));
+
+            softly.assertThat(listPage.returnToHomePageLinkIsDisplayed()).isTrue();
+            softly.assertThat(listPage.returnToHomePageLinkIsEnabled()).isTrue();
+
+            softly.assertAll();
+        }
+
+        @Test
+        @DisplayName("Should cadastro page link be visible and clickable even when screen is horizontally small")
+        void shouldCadastroPageLinkBeClickableWhenScreenIsSmall() {
+            SoftAssertions softly = new SoftAssertions();
+
+            setupGoToEdit();
+
+            driver.manage().window().setSize(new Dimension(500, 600));
+
+            softly.assertThat(listPage.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
+            softly.assertThat(listPage.goToCadastroPageLinkLinkIsEnabled()).isTrue();
+
+            softly.assertAll();
+        }
+    }
+
     private void cadastroSuperpoderFromFaker(){
-        page.goToCadastro();
+        listPage.goToCadastro();
         CadastroSuperpoderPage pageCadastro = new CadastroSuperpoderPage(driver);
         pageCadastro.cadastroSuperpoderFromFaker();
 
@@ -90,5 +118,13 @@ public class EditarSuperpoderesTest {
         for (int i = 0; i < quantidade; i++) {
             cadastroSuperpoderFromFaker();
         }
+    }
+    private void setupGoToEdit(){
+        cadastroSuperpoderFromFaker();
+
+        List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
+        superpoderes.getFirst().goToEditPage();
+
+        this.editPage = new EditarSuperpoderesPage(driver);
     }
 }
