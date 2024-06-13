@@ -86,6 +86,21 @@ public class EditarSuperpoderesTest {
             }
         }
 
+        @Test
+        @DisplayName("Should not be able to edit superpoder if descricao input is blank")
+        void shouldNotEditSuperpoderIfDescricaoIsBlank() {
+            try {
+                setupGoToEdit();
+
+                editPage.clearDescricaoInput();
+
+                assertNotEquals("", editPage.getDescricaoValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
+
     }
 
     @Nested
