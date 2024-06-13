@@ -169,5 +169,21 @@ public class CadastroSuperpoderesTest {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
+
+        @Test
+        @DisplayName("Should not be able to create superpoder if descrição input is an empty space")
+        void shouldNotCreateSuperpoderIfDescricaoIsEmptySpace() {
+            try {
+                Superpoder superpoder = Superpoder.FromFaker();
+                superpoder.setDescricao(" ");
+
+                page.cadastroSuperpoderFromSuperpoder(superpoder);
+
+                assertNotEquals("", page.getDescricaoValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
     }
 }
