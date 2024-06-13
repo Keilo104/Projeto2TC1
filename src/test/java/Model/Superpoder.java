@@ -1,9 +1,13 @@
 package Model;
 
+import Faker.SuperpoderFakerUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.Objects;
+
+import static Faker.SuperpoderFakerUtil.getValidEfeitosColaterais;
+import static Faker.SuperpoderFakerUtil.getValidNota;
 
 public class Superpoder {
     private final By nomeDoPoderElement = By.className("post-title");
@@ -26,6 +30,17 @@ public class Superpoder {
         this.setDescricaoFromElement(e);
         this.setEfeitosColateraisFromElement(e);
         this.setNotaFromElement(e);
+    }
+
+    public static Superpoder FromFaker(){
+        Superpoder superpoder =  new Superpoder();
+
+        superpoder.nome = SuperpoderFakerUtil.getValidNome();
+        superpoder.descricao = SuperpoderFakerUtil.getValidDescricao();
+        superpoder.efeitosColaterais = getValidEfeitosColaterais();
+        superpoder.nota = getValidNota();
+
+        return superpoder;
     }
 
     public String getNome() {
@@ -92,4 +107,5 @@ public class Superpoder {
     public int hashCode() {
         return Objects.hash(nome, descricao, efeitosColaterais, nota);
     }
+
 }
