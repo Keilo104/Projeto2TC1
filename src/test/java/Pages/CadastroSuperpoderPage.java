@@ -1,5 +1,6 @@
 package Pages;
 
+import Faker.SuperpoderFakerUtil;
 import Model.Superpoder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -42,6 +43,17 @@ public class CadastroSuperpoderPage {
 
         Select selectNota = new Select(driver.findElement(notaSelect));
         selectNota.selectByValue(superpoder.getNota());
+
+        driver.findElement(submitButton).click();
+    }
+
+    public void createSuperpoderFromFaker() {
+        driver.findElement(nomeDoPoderInput).sendKeys(SuperpoderFakerUtil.getValidNome());
+        driver.findElement(descricaoInput).sendKeys(SuperpoderFakerUtil.getValidDescricao());
+        driver.findElement(efeitosColateraisInput).sendKeys(SuperpoderFakerUtil.getValidEfeitosColaterais());
+
+        Select selectNota = new Select(driver.findElement(notaSelect));
+        selectNota.selectByValue(SuperpoderFakerUtil.getValidNota());
 
         driver.findElement(submitButton).click();
     }
