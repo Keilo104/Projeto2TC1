@@ -56,4 +56,11 @@ public class ListSuperpoderesPage {
                 })
                 .toList();
     }
+
+    public List<SuperpoderItemPage> getSuperpoderesItemPage() {
+        return driver.findElements(allSuperpoderes)
+                .stream()
+                .map(SuperpoderItemPage::new)
+                .toList();
+    }
 }
