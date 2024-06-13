@@ -29,7 +29,7 @@ public class CadastroSuperpoderPage {
         driver.findElement(returnToHomePageLink).click();
     }
 
-    public void goToCadastrar() {
+    public void goToCadastro() {
         driver.findElement(goToCadastrarPageLink).click();
     }
 }

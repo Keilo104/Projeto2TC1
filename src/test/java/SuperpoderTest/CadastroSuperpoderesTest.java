@@ -50,7 +50,7 @@ public class CadastroSuperpoderesTest {
         @Test
         @DisplayName("Should path back to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
-            page.goToCadastrar();
+            page.goToCadastro();
 
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
         }

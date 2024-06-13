@@ -27,7 +27,7 @@ public class ListSuperpoderesPage {
         driver.findElement(returnToHomePageLink).click();
     }
 
-    public void goToCadastrar() {
+    public void goToCadastro() {
         driver.findElement(goToCadastrarPageLink).click();
     }
 
