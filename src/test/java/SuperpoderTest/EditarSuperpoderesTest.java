@@ -1,5 +1,6 @@
 package SuperpoderTest;
 
+import Model.Superpoder;
 import Pages.CadastroSuperpoderPage;
 import Pages.EditarSuperpoderesPage;
 import Pages.ListSuperpoderesPage;
@@ -8,6 +9,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,6 +18,7 @@ import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class EditarSuperpoderesTest {
     private WebDriver driver;
@@ -67,6 +70,21 @@ public class EditarSuperpoderesTest {
     @Nested
     @DisplayName("Tests for Editing Superpowers")
     class Editing{
+
+        @Test
+        @DisplayName("Should not be able to edit superpoder if nome input is blank")
+        void shouldNotEditSuperpoderIfNomeIsBlank() {
+            try {
+                setupGoToEdit();
+
+                editPage.clearNomeInput();
+
+                assertNotEquals("", editPage.getNomeDoPoderValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
 
     }
 

@@ -27,15 +27,26 @@ public class EditarSuperpoderesPage {
         }
     }
 
-    public void editeSuperpoderFromFaker() {
-        driver.findElement(nomeDoPoderInput).sendKeys(SuperpoderFakerUtil.getValidNome());
-        driver.findElement(descricaoInput).sendKeys(SuperpoderFakerUtil.getValidDescricao());
-        driver.findElement(efeitosColateraisInput).sendKeys(SuperpoderFakerUtil.getValidEfeitosColaterais());
+    public void clearNomeInput(){
+        this.driver.findElement(nomeDoPoderInput).clear();
+    }
+    public void clearDescricaoInput(){
+        this.driver.findElement(descricaoInput).clear();
+    }
+    public void clearEfeitosColateraisInput(){
+        this.driver.findElement(efeitosColateraisInput).clear();
+    }
 
-        Select selectNota = new Select(driver.findElement(notaSelect));
-        selectNota.selectByValue(SuperpoderFakerUtil.getValidNota());
+    public String getNomeDoPoderValidationMessage() {
+        return driver.findElement(nomeDoPoderInput).getAttribute("validationMessage");
+    }
 
-        driver.findElement(submitButton).click();
+    public String getDescricaoValidationMessage() {
+        return driver.findElement(descricaoInput).getAttribute("validationMessage");
+    }
+
+    public String getEfeitosColateraisValidationMessage() {
+        return driver.findElement(efeitosColateraisInput).getAttribute("validationMessage");
     }
 
     public void returnToHomePage() {
