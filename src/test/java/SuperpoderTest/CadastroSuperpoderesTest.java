@@ -64,7 +64,7 @@ public class CadastroSuperpoderesTest {
     class CreateSuperpoderes {
 
         @Test
-        @DisplayName("Should return to home screen after creating a new superpower")
+        @DisplayName("Should return to home screen after creating a new superpoder")
         void shouldSuccessfullyReturnToHomeAfterCreatingASuperpower() {
             final SoftAssertions softly = new SoftAssertions();
 
