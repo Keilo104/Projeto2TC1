@@ -1,7 +1,10 @@
 package Pages;
 
+import Model.Superpoder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 public class ListSuperpoderesPage {
     protected WebDriver driver;
@@ -26,5 +29,12 @@ public class ListSuperpoderesPage {
 
     public void goToCadastrar() {
         driver.findElement(goToCadastrarPageLink).click();
+    }
+
+    public List<Superpoder> getSuperpoderes() {
+        return driver.findElements(allSuperpoderes)
+                .stream()
+                .map(Superpoder::new)
+                .toList();
     }
 }
