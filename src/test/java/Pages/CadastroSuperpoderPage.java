@@ -40,6 +40,10 @@ public class CadastroSuperpoderPage {
         return driver.findElement(nomeDoPoderInput).getAttribute("validationMessage");
     }
 
+    public String getDescricaoValidationMessage() {
+        return driver.findElement(descricaoInput).getAttribute("validationMessage");
+    }
+
     public void cadastroSuperpoderFromSuperpoder(Superpoder superpoder) {
         driver.findElement(nomeDoPoderInput).sendKeys(superpoder.getNome());
         driver.findElement(descricaoInput).sendKeys(superpoder.getDescricao());
