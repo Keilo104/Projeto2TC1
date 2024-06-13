@@ -1,4 +1,4 @@
-package Pages;
+package Page;
 
 import Model.Superpoder;
 import org.openqa.selenium.By;

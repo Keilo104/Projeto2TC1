@@ -1,9 +1,7 @@
-package Pages;
+package Page;
 
-import Faker.SuperpoderFakerUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class EditarSuperpoderesPage {
     protected WebDriver driver;

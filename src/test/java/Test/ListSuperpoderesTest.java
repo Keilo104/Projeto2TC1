@@ -1,6 +1,6 @@
-package SuperpoderTest;
+package Test;
 
-import Pages.ListSuperpoderesPage;
+import Page.ListSuperpoderesPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;

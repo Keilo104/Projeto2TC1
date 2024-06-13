@@ -1,10 +1,9 @@
-package SuperpoderTest;
+package Test;
 
-import Model.Superpoder;
-import Pages.CadastroSuperpoderPage;
-import Pages.EditarSuperpoderesPage;
-import Pages.ListSuperpoderesPage;
-import Pages.SuperpoderItemPage;
+import Page.CadastroSuperpoderPage;
+import Page.EditarSuperpoderesPage;
+import Page.ListSuperpoderesPage;
+import Page.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
@@ -69,7 +68,7 @@ public class EditarSuperpoderesTest {
 
     @Nested
     @DisplayName("Tests for Editing Superpowers")
-    class Editing{
+    class EditSuperpoderes {
 
         @Test
         @DisplayName("Should not be able to edit superpoder if nome input is blank")
@@ -85,7 +84,6 @@ public class EditarSuperpoderesTest {
                 Assertions.fail("Superpoder was edited (alert was triggered)");
             }
         }
-
     }
 
     @Nested
@@ -130,13 +128,14 @@ public class EditarSuperpoderesTest {
 
         driver.switchTo().alert().accept();
         pageCadastro.returnToHomePage();
-
     }
+
     private void cadastroSuperpoderesFromFaker(int quantidade){
         for (int i = 0; i < quantidade; i++) {
             cadastroSuperpoderFromFaker();
         }
     }
+
     private void setupGoToEdit(){
         cadastroSuperpoderFromFaker();
 
