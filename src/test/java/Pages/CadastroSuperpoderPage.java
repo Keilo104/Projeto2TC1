@@ -27,4 +27,12 @@ public class CadastroSuperpoderPage {
                     "current page is: " + driver.getCurrentUrl());
         }
     }
+
+    public void returnToHomePage() {
+        driver.findElement(returnToHomePageLink).click();
+    }
+
+    public void goToCadastrar() {
+        driver.findElement(goToCadastrarPageLink).click();
+    }
 }
