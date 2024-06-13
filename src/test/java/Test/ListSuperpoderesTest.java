@@ -1,5 +1,6 @@
 package Test;
 
+import Page.CadastroSuperpoderPage;
 import Page.ListSuperpoderesPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
@@ -18,7 +19,7 @@ public class ListSuperpoderesTest {
     private WebDriverWait webDriverWait;
 
     private final String PAGE_URL = "https://site-tc1.vercel.app/";
-    private ListSuperpoderesPage page;
+    private ListSuperpoderesPage listPage;
 
     @BeforeEach
     void setup() {
@@ -27,7 +28,7 @@ public class ListSuperpoderesTest {
         driver = new FirefoxDriver();
         driver.get(PAGE_URL);
 
-        page = new ListSuperpoderesPage(driver);
+        listPage = new ListSuperpoderesPage(driver);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -43,7 +44,7 @@ public class ListSuperpoderesTest {
         @Test
         @DisplayName("Should path back to home when clicking home link")
         void shouldPathToHome() {
-            page.returnToHomePage();
+            listPage.returnToHomePage();
 
             assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
         }
@@ -51,7 +52,7 @@ public class ListSuperpoderesTest {
         @Test
         @DisplayName("Should path to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
-            page.goToCadastro();
+            listPage.goToCadastro();
 
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
         }
@@ -67,8 +68,8 @@ public class ListSuperpoderesTest {
 
             driver.manage().window().setSize(new Dimension(500, 600));
 
-            softly.assertThat(page.returnToHomePageLinkIsDisplayed()).isTrue();
-            softly.assertThat(page.returnToHomePageLinkIsEnabled()).isTrue();
+            softly.assertThat(listPage.returnToHomePageLinkIsDisplayed()).isTrue();
+            softly.assertThat(listPage.returnToHomePageLinkIsEnabled()).isTrue();
 
             softly.assertAll();
         }
@@ -80,10 +81,25 @@ public class ListSuperpoderesTest {
 
             driver.manage().window().setSize(new Dimension(500, 600));
 
-            softly.assertThat(page.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
-            softly.assertThat(page.goToCadastroPageLinkLinkIsEnabled()).isTrue();
+            softly.assertThat(listPage.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
+            softly.assertThat(listPage.goToCadastroPageLinkLinkIsEnabled()).isTrue();
 
             softly.assertAll();
+        }
+    }
+
+    private void cadastroSuperpoderFromFaker(){
+        listPage.goToCadastro();
+        CadastroSuperpoderPage pageCadastro = new CadastroSuperpoderPage(driver);
+        pageCadastro.cadastroSuperpoderFromFaker();
+
+        driver.switchTo().alert().accept();
+        pageCadastro.returnToHomePage();
+    }
+
+    private void cadastroSuperpoderesFromFaker(int quantidade){
+        for (int i = 0; i < quantidade; i++) {
+            cadastroSuperpoderFromFaker();
         }
     }
 }
