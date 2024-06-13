@@ -13,8 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CadastroSuperpoderesTest {
@@ -69,12 +67,7 @@ public class CadastroSuperpoderesTest {
         void shouldSuccessfullyCreateSuperpowerFromFakerAndCheck() {
             final SoftAssertions softly = new SoftAssertions();
 
-            Superpoder superpoder = new Superpoder();
-
-            superpoder.setNome("Poder inútil 1");
-            superpoder.setDescricao("Faz coisas inúteis");
-            superpoder.setEfeitosColaterais("Péssimos efeitos");
-            superpoder.setNota("3");
+            Superpoder superpoder = Superpoder.FromFaker();
 
             page.cadastroSuperpoderFromSuperpoder(superpoder);
 
