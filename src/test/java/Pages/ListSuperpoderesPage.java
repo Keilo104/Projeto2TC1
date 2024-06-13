@@ -19,4 +19,8 @@ public class ListSuperpoderesPage {
                     "current page is: " + driver.getCurrentUrl());
         }
     }
+
+    public void returnToHomePage() {
+        driver.findElement(returnToHomePageLink).click();
+    }
 }
