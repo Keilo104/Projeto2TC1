@@ -31,8 +31,6 @@ public class EditarSuperpoderesTest {
 
         page = new ListSuperpoderesPage(driver);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-
     }
 
     @AfterEach
@@ -61,7 +59,13 @@ public class EditarSuperpoderesTest {
         @Test
         @DisplayName("Should path back to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
-            page.goToCadastro();
+            cadastroSuperpoderFromFaker();
+
+            List<SuperpoderItemPage> superpoderes = page.getSuperpoderesItemPage();
+            superpoderes.getFirst().goToEditPage();
+
+            EditarSuperpoderesPage editPage = new EditarSuperpoderesPage(driver);
+            editPage.goToCadastro();
 
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
         }
