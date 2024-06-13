@@ -3,6 +3,7 @@ package SuperpoderTest;
 import Pages.CadastroSuperpoderPage;
 import Pages.EditarSuperpoderesPage;
 import Pages.ListSuperpoderesPage;
+import Pages.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,7 +47,13 @@ public class EditarSuperpoderesTest {
         @Test
         @DisplayName("Should path to home when clicking home link")
         void shouldPathToHome() {
-            page.returnToHomePage();
+            cadastroSuperpoderFromFaker();
+
+            List<SuperpoderItemPage> superpoderes = page.getSuperpoderesItemPage();
+            superpoderes.getFirst().goToEditPage();
+
+            EditarSuperpoderesPage editPage = new EditarSuperpoderesPage(driver);
+            editPage.returnToHomePage();
 
             assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
         }
