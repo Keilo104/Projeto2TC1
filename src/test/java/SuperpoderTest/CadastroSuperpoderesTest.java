@@ -68,7 +68,6 @@ public class CadastroSuperpoderesTest {
             final SoftAssertions softly = new SoftAssertions();
 
             Superpoder superpoder = Superpoder.FromFaker();
-
             page.cadastroSuperpoderFromSuperpoder(superpoder);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
