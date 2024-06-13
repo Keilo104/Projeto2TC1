@@ -36,6 +36,22 @@ public class CadastroSuperpoderPage {
         driver.findElement(goToCadastrarPageLink).click();
     }
 
+    public boolean returnToHomePageLinkIsDisplayed() {
+        return driver.findElement(returnToHomePageLink).isDisplayed();
+    }
+
+    public boolean returnToHomePageLinkIsEnabled() {
+        return driver.findElement(returnToHomePageLink).isEnabled();
+    }
+
+    public boolean goToCadastrarPageLinkLinkIsDisplayed() {
+        return driver.findElement(goToCadastrarPageLink).isDisplayed();
+    }
+
+    public boolean goToCadastrarPageLinkLinkIsEnabled() {
+        return driver.findElement(goToCadastrarPageLink).isEnabled();
+    }
+
     public String getNomeDoPoderValidationMessage() {
         return driver.findElement(nomeDoPoderInput).getAttribute("validationMessage");
     }
