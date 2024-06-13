@@ -28,4 +28,16 @@ public class SuperpoderFakerUtil {
         );
     }
 
+    public static String getValidEfeitosColaterais(){
+        return String.format("Whenever user %s near a %s, user shouts \"%s\" uncontrollably.",
+                faker.resolve("verbs.simple_present"),
+                faker.resolve("appliance.equipment"),
+                faker.resolve("rick_and_morty.quotes")
+        );
+    }
+
+    public static String getValidNota() {
+        return Integer.toString(random.nextInt(5) + 1);
+    }
+
 }
