@@ -36,6 +36,18 @@ public class CadastroSuperpoderPage {
         driver.findElement(goToCadastrarPageLink).click();
     }
 
+    public String getNomeDoPoderValidationMessage() {
+        return driver.findElement(nomeDoPoderInput).getAttribute("validationMessage");
+    }
+
+    public String getDescricaoValidationMessage() {
+        return driver.findElement(descricaoInput).getAttribute("validationMessage");
+    }
+
+    public String getEfeitosColateraisValidationMessage() {
+        return driver.findElement(efeitosColateraisInput).getAttribute("validationMessage");
+    }
+
     public void cadastroSuperpoderFromSuperpoder(Superpoder superpoder) {
         driver.findElement(nomeDoPoderInput).sendKeys(superpoder.getNome());
         driver.findElement(descricaoInput).sendKeys(superpoder.getDescricao());
