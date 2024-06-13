@@ -34,7 +34,10 @@ public class ListSuperpoderesPage {
     public List<Superpoder> getSuperpoderes() {
         return driver.findElements(allSuperpoderes)
                 .stream()
-                .map(Superpoder::new)
+                .map(e->{
+                    SuperpoderItemPage superpoderItemPage = new SuperpoderItemPage(e);
+                    return new Superpoder(superpoderItemPage);
+                })
                 .toList();
     }
 }

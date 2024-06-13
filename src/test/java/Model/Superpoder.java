@@ -1,6 +1,7 @@
 package Model;
 
 import Faker.SuperpoderFakerUtil;
+import Pages.SuperpoderItemPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -10,14 +11,6 @@ import static Faker.SuperpoderFakerUtil.getValidEfeitosColaterais;
 import static Faker.SuperpoderFakerUtil.getValidNota;
 
 public class Superpoder {
-    private final By nomeDoPoderElement = By.className("post-title");
-    private final By descricaoElement = By.className("post-excerpt");
-    private final By efeitosColateraisElement = By.xpath("//p[2]");
-    private final By notaSelectElement = By.className("stars");
-
-    private final By editButton = By.xpath("//div/button[1]");
-    private final By deleteButton = By.xpath("//div/button[2]");
-
     private String nome;
     private String descricao;
     private String efeitosColaterais;
@@ -25,11 +18,12 @@ public class Superpoder {
 
     public Superpoder() { }
 
-    public Superpoder(WebElement e) {
-        this.setNomeFromElement(e);
-        this.setDescricaoFromElement(e);
-        this.setEfeitosColateraisFromElement(e);
-        this.setNotaFromElement(e);
+    public Superpoder(SuperpoderItemPage superpoderItemPage) {
+        this.nome = superpoderItemPage.setNomeFromElement();
+        this.descricao = superpoderItemPage.setDescricaoFromElement();
+        this.efeitosColaterais = superpoderItemPage.setEfeitosColateraisFromElement();
+        this.nota = superpoderItemPage.setNotaFromElement();
+
     }
 
     public static Superpoder FromFaker(){
@@ -51,20 +45,12 @@ public class Superpoder {
         this.nome = nome;
     }
 
-    private void setNomeFromElement(WebElement e) {
-        this.nome = e.findElement(nomeDoPoderElement).getText();
-    }
-
     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    private void setDescricaoFromElement(WebElement e) {
-        this.descricao = e.findElement(descricaoElement).getText();
     }
 
     public String getEfeitosColaterais() {
@@ -75,12 +61,6 @@ public class Superpoder {
         this.efeitosColaterais = efeitosColaterais;
     }
 
-    private void setEfeitosColateraisFromElement(WebElement e) {
-        String efeitosColaterais = e.findElement(efeitosColateraisElement).getText();
-
-        this.efeitosColaterais = efeitosColaterais.substring(20);
-    }
-
     public String getNota() {
         return nota;
     }
@@ -89,11 +69,6 @@ public class Superpoder {
         this.nota = nota;
     }
 
-    private void setNotaFromElement(WebElement e) {
-        String stars = e.findElement(notaSelectElement).getText();
-
-        this.nota = Integer.toString(stars.length());
-    }
 
     @Override
     public boolean equals(Object o) {
