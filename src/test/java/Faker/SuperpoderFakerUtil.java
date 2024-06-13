@@ -20,7 +20,7 @@ public class SuperpoderFakerUtil {
     public static String getValidDescricao(){
         String control = random.nextBoolean() ? "" : " no";
 
-        return String.format("User is able to %s, but only %d times every %d months, and they have %s control over it.",
+        return String.format("User is able to %s, but only %d times every %d months, and they have%s control over it.",
                 faker.superhero().power(),
                 random.nextInt(6)+2,
                 random.nextInt(16)+3,
