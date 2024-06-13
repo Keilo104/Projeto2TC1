@@ -1,16 +1,20 @@
 package Test;
 
+import Model.Superpoder;
 import Page.CadastroSuperpoderPage;
 import Page.ListSuperpoderesPage;
+import Page.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,6 +61,34 @@ public class ListSuperpoderesTest {
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
         }
     }
+
+    @Nested
+    @DisplayName("Tests for deleting superpoderes")
+    class DeleteSuperpoderes {
+
+        @Test
+        @DisplayName("Should superpoderes list be empty after deleting the only superpoder")
+        void shouldSuperpoderesListBeEmptyAfterDeletingTheOnlySuperpoder() {
+            SoftAssertions softly = new SoftAssertions();
+
+            cadastroSuperpoderFromFaker();
+
+            List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
+            superpoderes.getFirst().deleteSuperpoder();
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+            String alertMessage = driver.switchTo().alert().getText();
+            driver.switchTo().alert().accept();
+
+            superpoderes = listPage.getSuperpoderesItemPage();
+
+            softly.assertThat(alertMessage).isEqualTo("Poder excluído com sucesso!");
+            softly.assertThat(superpoderes).isEmpty();
+
+            softly.assertAll();
+        }
+    }
+
     @Nested
     @DisplayName("Tests for UI")
     class UI {
