@@ -8,6 +8,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -69,23 +70,28 @@ public class ListSuperpoderesTest {
         @Test
         @DisplayName("Should superpoderes list be empty after deleting the only superpoder")
         void shouldSuperpoderesListBeEmptyAfterDeletingTheOnlySuperpoder() {
-            SoftAssertions softly = new SoftAssertions();
+            try {
+                SoftAssertions softly = new SoftAssertions();
 
-            cadastroSuperpoderFromFaker();
+                cadastroSuperpoderFromFaker();
 
-            List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
-            superpoderes.getFirst().deleteSuperpoder();
+                List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
+                //superpoderes.getFirst().deleteSuperpoder();
 
-            webDriverWait.until(ExpectedConditions.alertIsPresent());
-            String alertMessage = driver.switchTo().alert().getText();
-            driver.switchTo().alert().accept();
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
 
-            superpoderes = listPage.getSuperpoderesItemPage();
+                superpoderes = listPage.getSuperpoderesItemPage();
 
-            softly.assertThat(alertMessage).isEqualTo("Poder excluído com sucesso!");
-            softly.assertThat(superpoderes).isEmpty();
+                softly.assertThat(alertMessage).isEqualTo("Poder excluído com sucesso!");
+                softly.assertThat(superpoderes).isEmpty();
 
-            softly.assertAll();
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't deleted");
+            }
         }
     }
 
