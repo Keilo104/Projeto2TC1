@@ -57,7 +57,7 @@ public class EditarSuperpoderesTest {
         }
 
         @Test
-        @DisplayName("Should path back to cadastro when clicking cadastrar link")
+        @DisplayName("Should path to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
             setupGoToEdit();
             editPage.goToCadastro();
