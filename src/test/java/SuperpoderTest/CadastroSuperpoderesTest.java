@@ -137,5 +137,21 @@ public class CadastroSuperpoderesTest {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
+
+        @Test
+        @DisplayName("Should not be able to create superpoder if efeitos colaterais input is blank")
+        void shouldNotCreateSuperpoderIfEfeitosColateraisIsBlank() {
+            try {
+                Superpoder superpoder = Superpoder.FromFaker();
+                superpoder.setEfeitosColaterais("");
+
+                page.cadastroSuperpoderFromSuperpoder(superpoder);
+
+                assertNotEquals("", page.getEfeitosColateraisValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
     }
 }
