@@ -45,5 +45,13 @@ public class ListSuperpoderesTest {
 
             assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
         }
+
+        @Test
+        @DisplayName("Should path to cadastro when clicking cadastrar link")
+        void shouldPathToCadastro() {
+            page.goToCadastrar();
+
+            assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
+        }
     }
 }
