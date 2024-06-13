@@ -6,6 +6,7 @@ import Pages.ListSuperpoderesPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -151,6 +152,85 @@ public class CadastroSuperpoderesTest {
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
+
+        @Test
+        @DisplayName("Should not be able to create superpoder if nome input is an empty space")
+        void shouldNotCreateSuperpoderIfNomeIsEmptySpace() {
+            try {
+                Superpoder superpoder = Superpoder.FromFaker();
+                superpoder.setNome(" ");
+
+                page.cadastroSuperpoderFromSuperpoder(superpoder);
+
+                assertNotEquals("", page.getNomeDoPoderValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
+
+        @Test
+        @DisplayName("Should not be able to create superpoder if descrição input is an empty space")
+        void shouldNotCreateSuperpoderIfDescricaoIsEmptySpace() {
+            try {
+                Superpoder superpoder = Superpoder.FromFaker();
+                superpoder.setDescricao(" ");
+
+                page.cadastroSuperpoderFromSuperpoder(superpoder);
+
+                assertNotEquals("", page.getDescricaoValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
+
+        @Test
+        @DisplayName("Should not be able to create superpoder if efeitos colaterais input is an empty space")
+        void shouldNotCreateSuperpoderIfEfeitosColateraisIsEmptyPath() {
+            try {
+                Superpoder superpoder = Superpoder.FromFaker();
+                superpoder.setEfeitosColaterais(" ");
+
+                page.cadastroSuperpoderFromSuperpoder(superpoder);
+
+                assertNotEquals("", page.getEfeitosColateraisValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was created (alert was triggered)");
+            }
+        }
+
+        @Nested
+        @DisplayName("Tests for UI")
+        class UI {
+
+            @Test
+            @DisplayName("Should home page link be visible and clickable even when screen is horizontally small")
+            void shouldHomePageLinkBeClickableWhenScreenIsSmall() {
+                SoftAssertions softly = new SoftAssertions();
+
+                driver.manage().window().setSize(new Dimension(500, 600));
+
+                softly.assertThat(page.returnToHomePageLinkIsDisplayed()).isTrue();
+                softly.assertThat(page.returnToHomePageLinkIsEnabled()).isTrue();
+
+                softly.assertAll();
+            }
+
+            @Test
+            @DisplayName("Should cadastro page link be visible and clickable even when screen is horizontally small")
+            void shouldCadastroPageLinkBeClickableWhenScreenIsSmall() {
+                SoftAssertions softly = new SoftAssertions();
+
+                driver.manage().window().setSize(new Dimension(500, 600));
+
+                softly.assertThat(page.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
+                softly.assertThat(page.goToCadastroPageLinkLinkIsEnabled()).isTrue();
+
+                softly.assertAll();
             }
         }
     }

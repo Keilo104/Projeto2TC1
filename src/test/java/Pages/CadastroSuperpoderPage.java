@@ -10,7 +10,7 @@ public class CadastroSuperpoderPage {
     protected WebDriver driver;
 
     private final By returnToHomePageLink = By.xpath("/html/body/div/body/div/header/h1/a");
-    private final By goToCadastrarPageLink = By.xpath("/html/body/div/body/div/header/nav/ul/li/a");
+    private final By goToCadastroPageLink = By.xpath("/html/body/div/body/div/header/nav/ul/li/a");
 
     private final By nomeDoPoderInput = By.xpath("//*[@id=\"nome_do_poder\"]");
     private final By descricaoInput = By.xpath("//*[@id=\"descricao\"]");
@@ -33,7 +33,23 @@ public class CadastroSuperpoderPage {
     }
 
     public void goToCadastro() {
-        driver.findElement(goToCadastrarPageLink).click();
+        driver.findElement(goToCadastroPageLink).click();
+    }
+
+    public boolean returnToHomePageLinkIsDisplayed() {
+        return driver.findElement(returnToHomePageLink).isDisplayed();
+    }
+
+    public boolean returnToHomePageLinkIsEnabled() {
+        return driver.findElement(returnToHomePageLink).isEnabled();
+    }
+
+    public boolean goToCadastroPageLinkLinkIsDisplayed() {
+        return driver.findElement(goToCadastroPageLink).isDisplayed();
+    }
+
+    public boolean goToCadastroPageLinkLinkIsEnabled() {
+        return driver.findElement(goToCadastroPageLink).isEnabled();
     }
 
     public String getNomeDoPoderValidationMessage() {
