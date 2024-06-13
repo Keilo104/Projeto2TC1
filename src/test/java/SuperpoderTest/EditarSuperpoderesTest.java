@@ -101,6 +101,21 @@ public class EditarSuperpoderesTest {
             }
         }
 
+        @Test
+        @DisplayName("Should not be able to edit superpoder if efeitoColateral input is blank")
+        void shouldNotEditSuperpoderIfEfeitoColateralIsBlank() {
+            try {
+                setupGoToEdit();
+
+                editPage.clearEfeitosColateraisInput();
+
+                assertNotEquals("", editPage.getEfeitosColateraisValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
+
     }
 
     @Nested
