@@ -7,6 +7,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -69,42 +70,50 @@ public class CadastroSuperpoderesTest {
         @Test
         @DisplayName("Should return to home screen after creating a new superpoder")
         void shouldSuccessfullyReturnToHomeAfterCreatingASuperpower() {
-            final SoftAssertions softly = new SoftAssertions();
+            try {
+                final SoftAssertions softly = new SoftAssertions();
 
-            Superpoder superpoder = Superpoder.FromFaker();
-            createPage.cadastroSuperpoderFromSuperpoder(superpoder);
+                Superpoder superpoder = Superpoder.FromFaker();
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-            webDriverWait.until(ExpectedConditions.alertIsPresent());
-            String alertMessage = driver.switchTo().alert().getText();
-            driver.switchTo().alert().accept();
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
 
-            softly.assertThat(alertMessage).isEqualTo("Poder criado com sucesso!");
-            softly.assertThat(driver.getCurrentUrl()).isEqualTo("https://site-tc1.vercel.app/");
+                softly.assertThat(alertMessage).isEqualTo("Poder criado com sucesso!");
+                softly.assertThat(driver.getCurrentUrl()).isEqualTo("https://site-tc1.vercel.app/");
 
-            softly.assertAll();
+                softly.assertAll();
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't created");
+            }
         }
 
         @Test
         @DisplayName("Should be able to successfully create a superpower from faker and check if it's been properly created")
         void shouldSuccessfullyCreateSuperpowerFromFakerAndCheck() {
-            final SoftAssertions softly = new SoftAssertions();
+            try {
+                final SoftAssertions softly = new SoftAssertions();
 
-            Superpoder superpoder = Superpoder.FromFaker();
-            createPage.cadastroSuperpoderFromSuperpoder(superpoder);
+                Superpoder superpoder = Superpoder.FromFaker();
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-            webDriverWait.until(ExpectedConditions.alertIsPresent());
-            String alertMessage = driver.switchTo().alert().getText();
-            driver.switchTo().alert().accept();
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
 
-            createPage.returnToHomePage();
+                createPage.returnToHomePage();
 
-            ListSuperpoderesPage listSuperpoderesPage = new ListSuperpoderesPage(driver);
-            List<Superpoder> superpoderesList = listSuperpoderesPage.getSuperpoderes();
+                ListSuperpoderesPage listSuperpoderesPage = new ListSuperpoderesPage(driver);
+                List<Superpoder> superpoderesList = listSuperpoderesPage.getSuperpoderes();
 
-            softly.assertThat(alertMessage).isEqualTo("Poder criado com sucesso!");
-            softly.assertThat(superpoderesList).contains(superpoder);
+                softly.assertThat(alertMessage).isEqualTo("Poder criado com sucesso!");
+                softly.assertThat(superpoderesList).contains(superpoder);
 
-            softly.assertAll();
+                softly.assertAll();
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't created");
+            }
         }
 
         @Test
@@ -117,8 +126,8 @@ public class CadastroSuperpoderesTest {
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
                 assertNotEquals("", createPage.getNomeDoPoderValidationMessage());
-            } catch (UnhandledAlertException ignored) {
 
+            } catch (UnhandledAlertException ignored) {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
@@ -133,8 +142,8 @@ public class CadastroSuperpoderesTest {
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
                 assertNotEquals("", createPage.getDescricaoValidationMessage());
-            } catch (UnhandledAlertException ignored) {
 
+            } catch (UnhandledAlertException ignored) {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
@@ -149,8 +158,8 @@ public class CadastroSuperpoderesTest {
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
                 assertNotEquals("", createPage.getEfeitosColateraisValidationMessage());
-            } catch (UnhandledAlertException ignored) {
 
+            } catch (UnhandledAlertException ignored) {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
@@ -165,8 +174,8 @@ public class CadastroSuperpoderesTest {
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
                 assertNotEquals("", createPage.getNomeDoPoderValidationMessage());
-            } catch (UnhandledAlertException ignored) {
 
+            } catch (UnhandledAlertException ignored) {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
@@ -181,8 +190,8 @@ public class CadastroSuperpoderesTest {
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
                 assertNotEquals("", createPage.getDescricaoValidationMessage());
-            } catch (UnhandledAlertException ignored) {
 
+            } catch (UnhandledAlertException ignored) {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
@@ -197,8 +206,8 @@ public class CadastroSuperpoderesTest {
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
                 assertNotEquals("", createPage.getEfeitosColateraisValidationMessage());
-            } catch (UnhandledAlertException ignored) {
 
+            } catch (UnhandledAlertException ignored) {
                 Assertions.fail("Superpoder was created (alert was triggered)");
             }
         }
