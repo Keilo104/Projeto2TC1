@@ -35,7 +35,7 @@ public class CadastroSuperpoderPage {
         driver.findElement(goToCadastrarPageLink).click();
     }
 
-    public void createSuperpoderFromSuperpoder(Superpoder superpoder) {
+    public void cadastroSuperpoderFromSuperpoder(Superpoder superpoder) {
         driver.findElement(nomeDoPoderInput).sendKeys(superpoder.getNome());
         driver.findElement(descricaoInput).sendKeys(superpoder.getDescricao());
         driver.findElement(efeitosColateraisInput).sendKeys(superpoder.getEfeitosColaterais());

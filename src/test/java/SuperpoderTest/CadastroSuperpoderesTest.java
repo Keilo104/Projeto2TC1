@@ -76,7 +76,7 @@ public class CadastroSuperpoderesTest {
             superpoder.setEfeitosColaterais("Péssimos efeitos");
             superpoder.setNota("3");
 
-            page.createSuperpoderFromSuperpoder(superpoder);
+            page.cadastroSuperpoderFromSuperpoder(superpoder);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             String alertMessage = driver.switchTo().alert().getText();
