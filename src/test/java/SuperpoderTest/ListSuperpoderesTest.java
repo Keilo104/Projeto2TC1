@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ListSuperpoderesTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
@@ -30,5 +32,18 @@ public class ListSuperpoderesTest {
     @AfterEach
     void destroy() {
         driver.quit();
+    }
+
+    @Nested
+    @DisplayName("Tests for pathing to other places")
+    class Pathing {
+
+        @Test
+        @DisplayName("Should path back to home when clicking home link")
+        void shouldPathToHome() {
+            page.returnToHomePage();
+
+            assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
+        }
     }
 }
