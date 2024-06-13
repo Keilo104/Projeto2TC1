@@ -1,7 +1,9 @@
 package Pages;
 
+import Faker.SuperpoderFakerUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class EditarSuperpoderesPage {
     protected WebDriver driver;
@@ -23,6 +25,17 @@ public class EditarSuperpoderesPage {
             throw new IllegalStateException("This is not the editar Superpoder page," +
                     "current page is: "+ driver.getCurrentUrl());
         }
+    }
+
+    public void editeSuperpoderFromFaker() {
+        driver.findElement(nomeDoPoderInput).sendKeys(SuperpoderFakerUtil.getValidNome());
+        driver.findElement(descricaoInput).sendKeys(SuperpoderFakerUtil.getValidDescricao());
+        driver.findElement(efeitosColateraisInput).sendKeys(SuperpoderFakerUtil.getValidEfeitosColaterais());
+
+        Select selectNota = new Select(driver.findElement(notaSelect));
+        selectNota.selectByValue(SuperpoderFakerUtil.getValidNota());
+
+        driver.findElement(submitButton).click();
     }
 
     public void returnToHomePage() {
