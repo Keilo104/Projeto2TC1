@@ -219,6 +219,19 @@ public class CadastroSuperpoderesTest {
 
                 softly.assertAll();
             }
+
+            @Test
+            @DisplayName("Should cadastro page link be visible and clickable even when screen is horizontally small")
+            void shouldCadastroPageLinkBeClickableWhenScreenIsSmall() {
+                SoftAssertions softly = new SoftAssertions();
+
+                driver.manage().window().setSize(new Dimension(500, 600));
+
+                softly.assertThat(page.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
+                softly.assertThat(page.goToCadastroPageLinkLinkIsEnabled()).isTrue();
+
+                softly.assertAll();
+            }
         }
     }
 }
