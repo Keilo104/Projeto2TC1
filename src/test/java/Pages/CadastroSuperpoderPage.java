@@ -59,7 +59,7 @@ public class CadastroSuperpoderPage {
         driver.findElement(submitButton).click();
     }
 
-    public void createSuperpoderFromFaker() {
+    public void cadastroSuperpoderFromFaker() {
         driver.findElement(nomeDoPoderInput).sendKeys(SuperpoderFakerUtil.getValidNome());
         driver.findElement(descricaoInput).sendKeys(SuperpoderFakerUtil.getValidDescricao());
         driver.findElement(efeitosColateraisInput).sendKeys(SuperpoderFakerUtil.getValidEfeitosColaterais());
