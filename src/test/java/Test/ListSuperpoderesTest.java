@@ -76,7 +76,7 @@ public class ListSuperpoderesTest {
                 cadastroSuperpoderFromFaker();
 
                 List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
-                //superpoderes.getFirst().deleteSuperpoder();
+                superpoderes.getFirst().deleteSuperpoder();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
                 String alertMessage = driver.switchTo().alert().getText();
