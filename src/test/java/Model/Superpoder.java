@@ -108,4 +108,13 @@ public class Superpoder {
         return Objects.hash(nome, descricao, efeitosColaterais, nota);
     }
 
+    @Override
+    public String toString() {
+        return "Superpoder{" +
+                "nota='" + nota + '\'' +
+                ", efeitosColaterais='" + efeitosColaterais + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }
