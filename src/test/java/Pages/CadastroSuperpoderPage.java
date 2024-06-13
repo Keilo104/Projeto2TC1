@@ -1,10 +1,7 @@
 package Pages;
 
-import Faker.SuperpoderFakerUtil;
-import Model.Superpoder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class CadastroSuperpoderPage {
     protected WebDriver driver;
