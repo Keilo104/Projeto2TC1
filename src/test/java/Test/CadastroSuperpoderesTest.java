@@ -23,7 +23,7 @@ public class CadastroSuperpoderesTest {
     private WebDriverWait webDriverWait;
 
     private final String PAGE_URL = "https://site-tc1.vercel.app/cadastro";
-    private CadastroSuperpoderPage page;
+    private CadastroSuperpoderPage createPage;
 
     @BeforeEach
     void setup() {
@@ -32,7 +32,7 @@ public class CadastroSuperpoderesTest {
         driver = new FirefoxDriver();
         driver.get(PAGE_URL);
 
-        page = new CadastroSuperpoderPage(driver);
+        createPage = new CadastroSuperpoderPage(driver);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -48,7 +48,7 @@ public class CadastroSuperpoderesTest {
         @Test
         @DisplayName("Should path to home when clicking home link")
         void shouldPathToHome() {
-            page.returnToHomePage();
+            createPage.returnToHomePage();
 
             assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
         }
@@ -56,7 +56,7 @@ public class CadastroSuperpoderesTest {
         @Test
         @DisplayName("Should path back to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
-            page.goToCadastro();
+            createPage.goToCadastro();
 
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
         }
@@ -72,7 +72,7 @@ public class CadastroSuperpoderesTest {
             final SoftAssertions softly = new SoftAssertions();
 
             Superpoder superpoder = Superpoder.FromFaker();
-            page.cadastroSuperpoderFromSuperpoder(superpoder);
+            createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             String alertMessage = driver.switchTo().alert().getText();
@@ -90,13 +90,13 @@ public class CadastroSuperpoderesTest {
             final SoftAssertions softly = new SoftAssertions();
 
             Superpoder superpoder = Superpoder.FromFaker();
-            page.cadastroSuperpoderFromSuperpoder(superpoder);
+            createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             String alertMessage = driver.switchTo().alert().getText();
             driver.switchTo().alert().accept();
 
-            page.returnToHomePage();
+            createPage.returnToHomePage();
 
             ListSuperpoderesPage listSuperpoderesPage = new ListSuperpoderesPage(driver);
             List<Superpoder> superpoderesList = listSuperpoderesPage.getSuperpoderes();
@@ -114,9 +114,9 @@ public class CadastroSuperpoderesTest {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setNome("");
 
-                page.cadastroSuperpoderFromSuperpoder(superpoder);
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-                assertNotEquals("", page.getNomeDoPoderValidationMessage());
+                assertNotEquals("", createPage.getNomeDoPoderValidationMessage());
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
@@ -130,9 +130,9 @@ public class CadastroSuperpoderesTest {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setDescricao("");
 
-                page.cadastroSuperpoderFromSuperpoder(superpoder);
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-                assertNotEquals("", page.getDescricaoValidationMessage());
+                assertNotEquals("", createPage.getDescricaoValidationMessage());
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
@@ -146,9 +146,9 @@ public class CadastroSuperpoderesTest {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setEfeitosColaterais("");
 
-                page.cadastroSuperpoderFromSuperpoder(superpoder);
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-                assertNotEquals("", page.getEfeitosColateraisValidationMessage());
+                assertNotEquals("", createPage.getEfeitosColateraisValidationMessage());
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
@@ -162,9 +162,9 @@ public class CadastroSuperpoderesTest {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setNome(" ");
 
-                page.cadastroSuperpoderFromSuperpoder(superpoder);
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-                assertNotEquals("", page.getNomeDoPoderValidationMessage());
+                assertNotEquals("", createPage.getNomeDoPoderValidationMessage());
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
@@ -178,9 +178,9 @@ public class CadastroSuperpoderesTest {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setDescricao(" ");
 
-                page.cadastroSuperpoderFromSuperpoder(superpoder);
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-                assertNotEquals("", page.getDescricaoValidationMessage());
+                assertNotEquals("", createPage.getDescricaoValidationMessage());
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
@@ -194,9 +194,9 @@ public class CadastroSuperpoderesTest {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setEfeitosColaterais(" ");
 
-                page.cadastroSuperpoderFromSuperpoder(superpoder);
+                createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
-                assertNotEquals("", page.getEfeitosColateraisValidationMessage());
+                assertNotEquals("", createPage.getEfeitosColateraisValidationMessage());
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was created (alert was triggered)");
@@ -214,8 +214,8 @@ public class CadastroSuperpoderesTest {
 
                 driver.manage().window().setSize(new Dimension(500, 600));
 
-                softly.assertThat(page.returnToHomePageLinkIsDisplayed()).isTrue();
-                softly.assertThat(page.returnToHomePageLinkIsEnabled()).isTrue();
+                softly.assertThat(createPage.returnToHomePageLinkIsDisplayed()).isTrue();
+                softly.assertThat(createPage.returnToHomePageLinkIsEnabled()).isTrue();
 
                 softly.assertAll();
             }
@@ -227,8 +227,8 @@ public class CadastroSuperpoderesTest {
 
                 driver.manage().window().setSize(new Dimension(500, 600));
 
-                softly.assertThat(page.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
-                softly.assertThat(page.goToCadastroPageLinkLinkIsEnabled()).isTrue();
+                softly.assertThat(createPage.goToCadastroPageLinkLinkIsDisplayed()).isTrue();
+                softly.assertThat(createPage.goToCadastroPageLinkLinkIsEnabled()).isTrue();
 
                 softly.assertAll();
             }
