@@ -31,6 +31,22 @@ public class ListSuperpoderesPage {
         driver.findElement(goToCadastroPageLink).click();
     }
 
+    public boolean returnToHomePageLinkIsDisplayed() {
+        return driver.findElement(returnToHomePageLink).isDisplayed();
+    }
+
+    public boolean returnToHomePageLinkIsEnabled() {
+        return driver.findElement(returnToHomePageLink).isEnabled();
+    }
+
+    public boolean goToCadastroPageLinkLinkIsDisplayed() {
+        return driver.findElement(goToCadastroPageLink).isDisplayed();
+    }
+
+    public boolean goToCadastroPageLinkLinkIsEnabled() {
+        return driver.findElement(goToCadastroPageLink).isEnabled();
+    }
+
     public List<Superpoder> getSuperpoderes() {
         return driver.findElements(allSuperpoderes)
                 .stream()
