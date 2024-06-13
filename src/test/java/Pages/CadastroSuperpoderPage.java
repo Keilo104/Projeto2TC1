@@ -1,7 +1,9 @@
 package Pages;
 
+import Model.Superpoder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class CadastroSuperpoderPage {
     protected WebDriver driver;
@@ -31,5 +33,16 @@ public class CadastroSuperpoderPage {
 
     public void goToCadastro() {
         driver.findElement(goToCadastrarPageLink).click();
+    }
+
+    public void createSuperpoderFromSuperpoder(Superpoder superpoder) {
+        driver.findElement(nomeDoPoderInput).sendKeys(superpoder.getNome());
+        driver.findElement(descricaoInput).sendKeys(superpoder.getDescricao());
+        driver.findElement(efeitosColateraisInput).sendKeys(superpoder.getEfeitosColaterais());
+
+        Select selectNota = new Select(driver.findElement(notaSelect));
+        selectNota.selectByValue(superpoder.getNota());
+
+        driver.findElement(submitButton).click();
     }
 }
