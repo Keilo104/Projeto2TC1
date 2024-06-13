@@ -1,9 +1,7 @@
 package Model;
 
 import Faker.SuperpoderFakerUtil;
-import Pages.SuperpoderItemPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import Page.SuperpoderItemPage;
 
 import java.util.Objects;
 

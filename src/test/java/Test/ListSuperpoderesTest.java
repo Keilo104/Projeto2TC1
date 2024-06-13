@@ -1,32 +1,30 @@
-package SuperpoderTest;
+package Test;
 
 import Model.Superpoder;
-import Pages.CadastroSuperpoderPage;
-import Pages.EditarSuperpoderesPage;
-import Pages.ListSuperpoderesPage;
-import Pages.SuperpoderItemPage;
+import Page.CadastroSuperpoderPage;
+import Page.ListSuperpoderesPage;
+import Page.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class EditarSuperpoderesTest {
+public class ListSuperpoderesTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
 
     private final String PAGE_URL = "https://site-tc1.vercel.app/";
     private ListSuperpoderesPage listPage;
-    private EditarSuperpoderesPage editPage;
 
     @BeforeEach
     void setup() {
@@ -49,73 +47,52 @@ public class EditarSuperpoderesTest {
     class Pathing {
 
         @Test
-        @DisplayName("Should path to home when clicking home link")
+        @DisplayName("Should path back to home when clicking home link")
         void shouldPathToHome() {
-            setupGoToEdit();
-            editPage.returnToHomePage();
+            listPage.returnToHomePage();
 
             assertEquals("https://site-tc1.vercel.app/", driver.getCurrentUrl());
         }
 
         @Test
-        @DisplayName("Should path back to cadastro when clicking cadastrar link")
+        @DisplayName("Should path to cadastro when clicking cadastrar link")
         void shouldPathToCadastro() {
-            setupGoToEdit();
-            editPage.goToCadastro();
+            listPage.goToCadastro();
 
             assertEquals("https://site-tc1.vercel.app/cadastro", driver.getCurrentUrl());
         }
     }
 
     @Nested
-    @DisplayName("Tests for Editing Superpowers")
-    class Editing{
+    @DisplayName("Tests for deleting superpoderes")
+    class DeleteSuperpoderes {
 
         @Test
-        @DisplayName("Should not be able to edit superpoder if nome input is blank")
-        void shouldNotEditSuperpoderIfNomeIsBlank() {
+        @DisplayName("Should superpoderes list be empty after deleting the only superpoder")
+        void shouldSuperpoderesListBeEmptyAfterDeletingTheOnlySuperpoder() {
             try {
-                setupGoToEdit();
+                SoftAssertions softly = new SoftAssertions();
 
-                editPage.clearNomeInput();
+                cadastroSuperpoderFromFaker();
 
-                assertNotEquals("", editPage.getNomeDoPoderValidationMessage());
-            } catch (UnhandledAlertException ignored) {
+                List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
+                superpoderes.getFirst().deleteSuperpoder();
 
-                Assertions.fail("Superpoder was edited (alert was triggered)");
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                superpoderes = listPage.getSuperpoderesItemPage();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder excluído com sucesso!");
+                softly.assertThat(superpoderes).isEmpty();
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't deleted");
             }
         }
-
-        @Test
-        @DisplayName("Should not be able to edit superpoder if descricao input is blank")
-        void shouldNotEditSuperpoderIfDescricaoIsBlank() {
-            try {
-                setupGoToEdit();
-
-                editPage.clearDescricaoInput();
-
-                assertNotEquals("", editPage.getDescricaoValidationMessage());
-            } catch (UnhandledAlertException ignored) {
-
-                Assertions.fail("Superpoder was edited (alert was triggered)");
-            }
-        }
-
-        @Test
-        @DisplayName("Should not be able to edit superpoder if efeitoColateral input is blank")
-        void shouldNotEditSuperpoderIfEfeitoColateralIsBlank() {
-            try {
-                setupGoToEdit();
-
-                editPage.clearEfeitosColateraisInput();
-
-                assertNotEquals("", editPage.getEfeitosColateraisValidationMessage());
-            } catch (UnhandledAlertException ignored) {
-
-                Assertions.fail("Superpoder was edited (alert was triggered)");
-            }
-        }
-
     }
 
     @Nested
@@ -126,8 +103,6 @@ public class EditarSuperpoderesTest {
         @DisplayName("Should home page link be visible and clickable even when screen is horizontally small")
         void shouldHomePageLinkBeClickableWhenScreenIsSmall() {
             SoftAssertions softly = new SoftAssertions();
-
-            setupGoToEdit();
 
             driver.manage().window().setSize(new Dimension(500, 600));
 
@@ -141,8 +116,6 @@ public class EditarSuperpoderesTest {
         @DisplayName("Should cadastro page link be visible and clickable even when screen is horizontally small")
         void shouldCadastroPageLinkBeClickableWhenScreenIsSmall() {
             SoftAssertions softly = new SoftAssertions();
-
-            setupGoToEdit();
 
             driver.manage().window().setSize(new Dimension(500, 600));
 
@@ -160,19 +133,11 @@ public class EditarSuperpoderesTest {
 
         driver.switchTo().alert().accept();
         pageCadastro.returnToHomePage();
-
     }
+
     private void cadastroSuperpoderesFromFaker(int quantidade){
         for (int i = 0; i < quantidade; i++) {
             cadastroSuperpoderFromFaker();
         }
-    }
-    private void setupGoToEdit(){
-        cadastroSuperpoderFromFaker();
-
-        List<SuperpoderItemPage> superpoderes = listPage.getSuperpoderesItemPage();
-        superpoderes.getFirst().goToEditPage();
-
-        this.editPage = new EditarSuperpoderesPage(driver);
     }
 }

@@ -1,4 +1,4 @@
-package Pages;
+package Page;
 
 import Faker.SuperpoderFakerUtil;
 import Model.Superpoder;

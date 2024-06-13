@@ -1,7 +1,6 @@
-package Pages;
+package Page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class SuperpoderItemPage {
@@ -16,33 +15,35 @@ public class SuperpoderItemPage {
 
     protected WebElement element;
 
-    public SuperpoderItemPage(WebElement element){
+    public SuperpoderItemPage(WebElement element) {
         this.element = element;
     }
 
-    public void goToEditPage(){
+    public void goToEditPage() {
         element.findElement(editButton).click();
     }
-    public void deleteSuperpoder(){
+
+    public void deleteSuperpoder() {
         element.findElement(deleteButton).click();
     }
 
-    public String setNotaFromElement() {
-        String stars = element.findElement(notaSelectElement).getText();
-
-        return Integer.toString(stars.length());
-    }
-    public String setEfeitosColateraisFromElement() {
-        String efeitosColaterais = element.findElement(efeitosColateraisElement).getText();
-
-        return efeitosColaterais.substring(20);
+    public String setNomeFromElement() {
+        return element.findElement(nomeDoPoderElement).getText();
     }
 
     public String setDescricaoFromElement() {
         return element.findElement(descricaoElement).getText();
     }
 
-    public String setNomeFromElement() {
-        return element.findElement(nomeDoPoderElement).getText();
+    public String setEfeitosColateraisFromElement() {
+        String efeitosColaterais = element.findElement(efeitosColateraisElement).getText();
+
+        return efeitosColaterais.substring(20);
+    }
+
+    public String setNotaFromElement() {
+        String stars = element.findElement(notaSelectElement).getText();
+
+        return Integer.toString(stars.length());
     }
 }
