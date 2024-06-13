@@ -10,7 +10,7 @@ public class ListSuperpoderesPage {
     protected WebDriver driver;
 
     private final By returnToHomePageLink = By.xpath("/html/body/div/body/div/header/h1/a");
-    private final By goToCadastrarPageLink = By.xpath("/html/body/div/body/div/header/nav/ul/li/a");
+    private final By goToCadastroPageLink = By.xpath("/html/body/div/body/div/header/nav/ul/li/a");
 
     private final By allSuperpoderes = By.className("post");
 
@@ -28,7 +28,7 @@ public class ListSuperpoderesPage {
     }
 
     public void goToCadastro() {
-        driver.findElement(goToCadastrarPageLink).click();
+        driver.findElement(goToCadastroPageLink).click();
     }
 
     public List<Superpoder> getSuperpoderes() {
