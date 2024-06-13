@@ -62,6 +62,25 @@ public class CadastroSuperpoderesTest {
     @Nested
     @DisplayName("Tests for creating superpoderes")
     class CreateSuperpoderes {
+
+        @Test
+        @DisplayName("Should return to home screen after creating a new superpower")
+        void shouldSuccessfullyReturnToHomeAfterCreatingASuperpower() {
+            final SoftAssertions softly = new SoftAssertions();
+
+            Superpoder superpoder = Superpoder.FromFaker();
+            page.cadastroSuperpoderFromSuperpoder(superpoder);
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+            String alertMessage = driver.switchTo().alert().getText();
+            driver.switchTo().alert().accept();
+
+            softly.assertThat(alertMessage).isEqualTo("Poder criado com sucesso!");
+            softly.assertThat(driver.getCurrentUrl()).isEqualTo("https://site-tc1.vercel.app/");
+
+            softly.assertAll();
+        }
+
         @Test
         @DisplayName("Should be able to successfully create a superpower from faker and check if it's been properly created")
         void shouldSuccessfullyCreateSuperpowerFromFakerAndCheck() {
