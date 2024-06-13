@@ -3,6 +3,8 @@ package Model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.Objects;
+
 public class Superpoder {
     private final By nomeDoPoderElement = By.className("post-title");
     private final By descricaoElement = By.className("post-excerpt");
@@ -76,5 +78,18 @@ public class Superpoder {
         String stars = e.findElement(notaSelectElement).getText();
 
         this.nota = Integer.toString(stars.length());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Superpoder that = (Superpoder) o;
+        return Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(efeitosColaterais, that.efeitosColaterais) && Objects.equals(nota, that.nota);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, descricao, efeitosColaterais, nota);
     }
 }
