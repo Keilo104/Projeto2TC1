@@ -120,8 +120,11 @@ public class CadastroSuperpoderesTest {
         @DisplayName("Should not be able to create superpoder if nome input is blank")
         void shouldNotCreateSuperpoderIfNomeIsBlank() {
             try {
-                Superpoder superpoder = Superpoder.FromFaker();
+                Superpoder superpoder = new Superpoder();
                 superpoder.setNome("");
+                superpoder.setDescricao("Teste");
+                superpoder.setEfeitosColaterais("Teste");
+                superpoder.setNota("5");
 
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
@@ -136,8 +139,11 @@ public class CadastroSuperpoderesTest {
         @DisplayName("Should not be able to create superpoder if descrição input is blank")
         void shouldNotCreateSuperpoderIfDescricaoIsBlank() {
             try {
-                Superpoder superpoder = Superpoder.FromFaker();
+                Superpoder superpoder = new Superpoder();
+                superpoder.setNome("Teste");
                 superpoder.setDescricao("");
+                superpoder.setEfeitosColaterais("Teste");
+                superpoder.setNota("5");
 
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
@@ -152,8 +158,11 @@ public class CadastroSuperpoderesTest {
         @DisplayName("Should not be able to create superpoder if efeitos colaterais input is blank")
         void shouldNotCreateSuperpoderIfEfeitosColateraisIsBlank() {
             try {
-                Superpoder superpoder = Superpoder.FromFaker();
+                Superpoder superpoder = new Superpoder();
+                superpoder.setNome("Teste");
+                superpoder.setDescricao("Teste");
                 superpoder.setEfeitosColaterais("");
+                superpoder.setNota("5");
 
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
@@ -168,8 +177,11 @@ public class CadastroSuperpoderesTest {
         @DisplayName("Should not be able to create superpoder if nome input is an empty space")
         void shouldNotCreateSuperpoderIfNomeIsEmptySpace() {
             try {
-                Superpoder superpoder = Superpoder.FromFaker();
+                Superpoder superpoder = new Superpoder();
                 superpoder.setNome(" ");
+                superpoder.setDescricao("Teste");
+                superpoder.setEfeitosColaterais("Teste");
+                superpoder.setNota("5");
 
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
@@ -184,8 +196,11 @@ public class CadastroSuperpoderesTest {
         @DisplayName("Should not be able to create superpoder if descrição input is an empty space")
         void shouldNotCreateSuperpoderIfDescricaoIsEmptySpace() {
             try {
-                Superpoder superpoder = Superpoder.FromFaker();
+                Superpoder superpoder = new Superpoder();
+                superpoder.setNome("Teste");
                 superpoder.setDescricao(" ");
+                superpoder.setEfeitosColaterais("Teste");
+                superpoder.setNota("5");
 
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
@@ -200,8 +215,11 @@ public class CadastroSuperpoderesTest {
         @DisplayName("Should not be able to create superpoder if efeitos colaterais input is an empty space")
         void shouldNotCreateSuperpoderIfEfeitosColateraisIsEmptySpace() {
             try {
-                Superpoder superpoder = Superpoder.FromFaker();
+                Superpoder superpoder = new Superpoder();
+                superpoder.setNome("Teste");
+                superpoder.setDescricao("Teste");
                 superpoder.setEfeitosColaterais(" ");
+                superpoder.setNota("5");
 
                 createPage.cadastroSuperpoderFromSuperpoder(superpoder);
 
