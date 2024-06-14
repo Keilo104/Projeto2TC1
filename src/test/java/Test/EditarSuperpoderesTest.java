@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -30,6 +31,7 @@ public class EditarSuperpoderesTest {
     private final String PAGE_URL = "https://site-tc1.vercel.app/";
     private ListSuperpoderesPage listPage;
     private EditarSuperpoderesPage editPage;
+    private Random random = new Random();
 
     @BeforeEach
     void setup() {
@@ -343,6 +345,45 @@ public class EditarSuperpoderesTest {
                 softly.assertThat(superpoderes).contains(postEdited);
                 softly.assertThat(superpoderes).doesNotContain(toBeEdited);
                 softly.assertThat(driver.getCurrentUrl()).isEqualTo("https://site-tc1.vercel.app/");
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't Edited");
+            }
+        }
+
+        @Test
+        @DisplayName("Should superpoder be properly edited")
+        void shouldSuperpowerBeProperlyEdited() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderesFromFaker(random.nextInt(12)+2);
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                SuperpoderItemPage superpoderItemPage = superpoderesItemPage.get(random.nextInt(superpoderesItemPage.size()));
+                Superpoder toBeEdited = new Superpoder(superpoderItemPage);
+                Superpoder postEdited = Superpoder.FromFaker();
+
+                superpoderItemPage.goToEditPage();
+                editPage = new EditarSuperpoderesPage(driver);
+
+                editPage.setNomeInputText(postEdited.getNome());
+                editPage.setDescricaoInputText(postEdited.getDescricao());
+                editPage.setEfeitosColateraisInputText(postEdited.getEfeitosColaterais());
+                editPage.setNotaSelectValue(postEdited.getNota());
+                editPage.sendEdit();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
+                softly.assertThat(superpoderes).contains(postEdited);
+                softly.assertThat(superpoderes).doesNotContain(toBeEdited);
 
                 softly.assertAll();
 
