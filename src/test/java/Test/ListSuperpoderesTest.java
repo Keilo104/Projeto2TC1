@@ -105,7 +105,7 @@ public class ListSuperpoderesTest {
             try {
                 SoftAssertions softly = new SoftAssertions();
 
-                cadastroSuperpoderesFromFaker(random.nextInt(11) + 1);
+                cadastroSuperpoderesFromFaker(random.nextInt(12) + 2);
 
                 List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
                 SuperpoderItemPage superpoderItemPageToBeDeleted = superpoderesItemPage.get(random.nextInt(superpoderesItemPage.size()));
