@@ -1,12 +1,12 @@
-package Model;
+package model;
 
-import Faker.SuperpoderFakerUtil;
-import Page.SuperpoderItemPage;
+import faker.SuperpoderFakerUtil;
+import page.SuperpoderItemPage;
 
 import java.util.Objects;
 
-import static Faker.SuperpoderFakerUtil.getValidEfeitosColaterais;
-import static Faker.SuperpoderFakerUtil.getValidNota;
+import static faker.SuperpoderFakerUtil.getValidEfeitosColaterais;
+import static faker.SuperpoderFakerUtil.getValidNota;
 
 public class Superpoder {
     private String nome;

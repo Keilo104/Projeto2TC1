@@ -1,13 +1,13 @@
-package Page;
+package page;
 
-import Model.Superpoder;
+import model.Superpoder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
 public class ListSuperpoderesPage {
-    protected WebDriver driver;
+    protected final WebDriver driver;
 
     private final By returnToHomePageLink = By.xpath("/html/body/div/body/div/header/h1/a");
     private final By goToCadastroPageLink = By.xpath("/html/body/div/body/div/header/nav/ul/li/a");

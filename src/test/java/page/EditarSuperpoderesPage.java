@@ -1,11 +1,11 @@
-package Page;
+package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class EditarSuperpoderesPage {
-    protected WebDriver driver;
+    protected final WebDriver driver;
 
     private final By returnToHomePageLink = By.xpath("/html/body/div/body/div/header/h1/a");
     private final By goToCadastrarPageLink = By.xpath("/html/body/div/body/div/header/nav/ul/li/a");

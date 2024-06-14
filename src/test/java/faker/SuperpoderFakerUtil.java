@@ -1,4 +1,4 @@
-package Faker;
+package faker;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.StringUtils;

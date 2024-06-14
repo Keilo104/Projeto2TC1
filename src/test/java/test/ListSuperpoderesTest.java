@@ -1,12 +1,10 @@
-package Test;
+package test;
 
-import Model.Superpoder;
-import Page.CadastroSuperpoderPage;
-import Page.ListSuperpoderesPage;
-import Page.SuperpoderItemPage;
-import com.github.javafaker.Faker;
+import model.Superpoder;
+import page.CadastroSuperpoderPage;
+import page.ListSuperpoderesPage;
+import page.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import net.bytebuddy.implementation.bind.annotation.Super;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;

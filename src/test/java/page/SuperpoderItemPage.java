@@ -1,4 +1,4 @@
-package Page;
+package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,7 +13,7 @@ public class SuperpoderItemPage {
     private final By editButton = By.xpath("//div/button[1]");
     private final By deleteButton = By.xpath("//div/button[2]");
 
-    protected WebElement element;
+    protected final WebElement element;
 
     public SuperpoderItemPage(WebElement element) {
         this.element = element;

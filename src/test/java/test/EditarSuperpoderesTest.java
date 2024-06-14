@@ -1,11 +1,11 @@
-package Test;
+package test;
 
-import Faker.SuperpoderFakerUtil;
-import Model.Superpoder;
-import Page.CadastroSuperpoderPage;
-import Page.EditarSuperpoderesPage;
-import Page.ListSuperpoderesPage;
-import Page.SuperpoderItemPage;
+import faker.SuperpoderFakerUtil;
+import model.Superpoder;
+import page.CadastroSuperpoderPage;
+import page.EditarSuperpoderesPage;
+import page.ListSuperpoderesPage;
+import page.SuperpoderItemPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
@@ -31,7 +31,7 @@ public class EditarSuperpoderesTest {
     private final String PAGE_URL = "https://site-tc1.vercel.app/";
     private ListSuperpoderesPage listPage;
     private EditarSuperpoderesPage editPage;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @BeforeEach
     void setup() {
