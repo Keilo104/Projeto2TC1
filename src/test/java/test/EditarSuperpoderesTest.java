@@ -179,15 +179,8 @@ public class EditarSuperpoderesTest {
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
                 postEdited.setNome(SuperpoderFakerUtil.getValidNome());
 
-                superpoderesItemPage.getFirst().goToEditPage();
-                editPage = new EditarSuperpoderesPage(driver);
-                editPage.setValuesFromSuperpoder(postEdited);
-                editPage.sendEdit();
-
-                webDriverWait.until(ExpectedConditions.alertIsPresent());
-                String alertMessage = driver.switchTo().alert().getText();
-                driver.switchTo().alert().accept();
-
+                loadEditPageAndEditBasedOnSuperpoder(superpoderesItemPage.getFirst(), postEdited);
+                String alertMessage = driverWaitUntilAlert();
                 List<Superpoder> superpoderes = listPage.getSuperpoderes();
 
                 softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
@@ -214,15 +207,8 @@ public class EditarSuperpoderesTest {
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
                 postEdited.setDescricao(SuperpoderFakerUtil.getValidDescricao());
 
-                superpoderesItemPage.getFirst().goToEditPage();
-                editPage = new EditarSuperpoderesPage(driver);
-                editPage.setValuesFromSuperpoder(postEdited);
-                editPage.sendEdit();
-
-                webDriverWait.until(ExpectedConditions.alertIsPresent());
-                String alertMessage = driver.switchTo().alert().getText();
-                driver.switchTo().alert().accept();
-
+                loadEditPageAndEditBasedOnSuperpoder(superpoderesItemPage.getFirst(), postEdited);
+                String alertMessage = driverWaitUntilAlert();
                 List<Superpoder> superpoderes = listPage.getSuperpoderes();
 
                 softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
@@ -249,15 +235,8 @@ public class EditarSuperpoderesTest {
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
                 postEdited.setEfeitosColaterais(SuperpoderFakerUtil.getValidEfeitosColaterais());
 
-                superpoderesItemPage.getFirst().goToEditPage();
-                editPage = new EditarSuperpoderesPage(driver);
-                editPage.setValuesFromSuperpoder(postEdited);
-                editPage.sendEdit();
-
-                webDriverWait.until(ExpectedConditions.alertIsPresent());
-                String alertMessage = driver.switchTo().alert().getText();
-                driver.switchTo().alert().accept();
-
+                loadEditPageAndEditBasedOnSuperpoder(superpoderesItemPage.getFirst(), postEdited);
+                String alertMessage = driverWaitUntilAlert();
                 List<Superpoder> superpoderes = listPage.getSuperpoderes();
 
                 softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
@@ -284,15 +263,8 @@ public class EditarSuperpoderesTest {
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
                 postEdited.setNota(SuperpoderFakerUtil.getValidNota());
 
-                superpoderesItemPage.getFirst().goToEditPage();
-                editPage = new EditarSuperpoderesPage(driver);
-                editPage.setValuesFromSuperpoder(postEdited);
-                editPage.sendEdit();
-
-                webDriverWait.until(ExpectedConditions.alertIsPresent());
-                String alertMessage = driver.switchTo().alert().getText();
-                driver.switchTo().alert().accept();
-
+                loadEditPageAndEditBasedOnSuperpoder(superpoderesItemPage.getFirst(), postEdited);
+                String alertMessage = driverWaitUntilAlert();
                 List<Superpoder> superpoderes = listPage.getSuperpoderes();
 
                 softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
@@ -319,15 +291,8 @@ public class EditarSuperpoderesTest {
                 Superpoder postEdited = Superpoder.FromFaker();
                 postEdited.setNota(SuperpoderFakerUtil.getValidNota());
 
-                superpoderesItemPage.getFirst().goToEditPage();
-                editPage = new EditarSuperpoderesPage(driver);
-                editPage.setValuesFromSuperpoder(postEdited);
-                editPage.sendEdit();
-
-                webDriverWait.until(ExpectedConditions.alertIsPresent());
-                String alertMessage = driver.switchTo().alert().getText();
-                driver.switchTo().alert().accept();
-
+                loadEditPageAndEditBasedOnSuperpoder(superpoderesItemPage.getFirst(), postEdited);
+                String alertMessage = driverWaitUntilAlert();
                 List<Superpoder> superpoderes = listPage.getSuperpoderes();
 
                 softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
@@ -355,15 +320,8 @@ public class EditarSuperpoderesTest {
                 Superpoder toBeEdited = new Superpoder(superpoderItemPage);
                 Superpoder postEdited = Superpoder.FromFaker();
 
-                superpoderItemPage.goToEditPage();
-                editPage = new EditarSuperpoderesPage(driver);
-                editPage.setValuesFromSuperpoder(postEdited);
-                editPage.sendEdit();
-
-                webDriverWait.until(ExpectedConditions.alertIsPresent());
-                String alertMessage = driver.switchTo().alert().getText();
-                driver.switchTo().alert().accept();
-
+                loadEditPageAndEditBasedOnSuperpoder(superpoderItemPage, postEdited);
+                String alertMessage = driverWaitUntilAlert();
                 List<Superpoder> superpoderes = listPage.getSuperpoderes();
 
                 softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
@@ -412,6 +370,21 @@ public class EditarSuperpoderesTest {
 
             softly.assertAll();
         }
+    }
+
+    private String driverWaitUntilAlert() {
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+        String alertMessage = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+
+        return alertMessage;
+    }
+
+    private void loadEditPageAndEditBasedOnSuperpoder(SuperpoderItemPage superpoderItemPage, Superpoder superpoder) {
+        superpoderItemPage.goToEditPage();
+        editPage = new EditarSuperpoderesPage(driver);
+        editPage.setValuesFromSuperpoder(superpoder);
+        editPage.sendEdit();
     }
 
     private void cadastroSuperpoderFromFaker(){
