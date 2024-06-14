@@ -58,5 +58,8 @@ public class EditarSuperpoderesPage {
     public void goToCadastro() {
         driver.findElement(goToCadastrarPageLink).click();
     }
+    public void sendEdit() {
+        driver.findElement(submitButton).click();
+    }
 
 }

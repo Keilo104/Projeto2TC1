@@ -1,5 +1,7 @@
 package Test;
 
+import Faker.SuperpoderFakerUtil;
+import Model.Superpoder;
 import Page.CadastroSuperpoderPage;
 import Page.EditarSuperpoderesPage;
 import Page.ListSuperpoderesPage;
@@ -8,9 +10,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -157,6 +161,43 @@ public class EditarSuperpoderesTest {
             } catch (UnhandledAlertException ignored) {
 
                 Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
+
+        @Test
+        @DisplayName("Should superpoderes list have edited superpoder when name is edited")
+        void shouldSuperpoderesListHaveEditedSuperpoderWhenNameEdited() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderFromFaker();
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
+                Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+
+                superpoderesItemPage.getFirst().goToEditPage();
+                editPage = new EditarSuperpoderesPage(driver);
+
+                String editedName = SuperpoderFakerUtil.getValidNome();
+                postEdited.setNome(editedName);
+                editPage.setNomeInputText(editedName);
+                editPage.sendEdit();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
+                softly.assertThat(superpoderes).contains(postEdited);
+                softly.assertThat(superpoderes).doesNotContain(toBeEdited);
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't deleted");
             }
         }
     }
