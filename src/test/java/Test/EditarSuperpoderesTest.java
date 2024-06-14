@@ -311,6 +311,46 @@ public class EditarSuperpoderesTest {
                 Assertions.fail("Superpoder wasn't Edited");
             }
         }
+
+        @Test
+        @DisplayName("Should return to home screen after editing a superpoder")
+        void shouldSuccessfullyReturnToHomeAfterEditingASuperpower() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderFromFaker();
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
+                Superpoder postEdited = Superpoder.FromFaker();
+
+                superpoderesItemPage.getFirst().goToEditPage();
+                editPage = new EditarSuperpoderesPage(driver);
+
+                editPage.setNomeInputText(postEdited.getNome());
+                editPage.setDescricaoInputText(postEdited.getDescricao());
+                editPage.setEfeitosColateraisInputText(postEdited.getEfeitosColaterais());
+                editPage.setNotaSelectValue(postEdited.getNota());
+                editPage.sendEdit();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
+                softly.assertThat(superpoderes).contains(postEdited);
+                softly.assertThat(superpoderes).doesNotContain(toBeEdited);
+                softly.assertThat(driver.getCurrentUrl()).isEqualTo("https://site-tc1.vercel.app/");
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't Edited");
+            }
+        }
+
     }
 
     @Nested
