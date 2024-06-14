@@ -76,7 +76,7 @@ public class EditarSuperpoderesTest {
             try {
                 setupGoToEdit();
 
-                editPage.clearNomeInput();
+                editPage.setNomeInputText("");
 
                 assertNotEquals("", editPage.getNomeDoPoderValidationMessage());
             } catch (UnhandledAlertException ignored) {
@@ -91,7 +91,7 @@ public class EditarSuperpoderesTest {
             try {
                 setupGoToEdit();
 
-                editPage.clearDescricaoInput();
+                editPage.setDescricaoInputText("");
 
                 assertNotEquals("", editPage.getDescricaoValidationMessage());
             } catch (UnhandledAlertException ignored) {
@@ -106,7 +106,7 @@ public class EditarSuperpoderesTest {
             try {
                 setupGoToEdit();
 
-                editPage.clearEfeitosColateraisInput();
+                editPage.setEfeitosColateraisInputText("");
 
                 assertNotEquals("", editPage.getEfeitosColateraisValidationMessage());
             } catch (UnhandledAlertException ignored) {
@@ -115,6 +115,50 @@ public class EditarSuperpoderesTest {
             }
         }
 
+        @Test
+        @DisplayName("Should not be able to edit superpoder if nome input is a empty space")
+        void shouldNotEditSuperpoderIfNomeIsEmptySpace() {
+            try {
+                setupGoToEdit();
+
+                editPage.setNomeInputText(" ");
+
+                assertNotEquals("", editPage.getNomeDoPoderValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
+
+        @Test
+        @DisplayName("Should not be able to edit superpoder if descricao input is a empty space")
+        void shouldNotEditSuperpoderIfDescricaoIsEmptySpace() {
+            try {
+                setupGoToEdit();
+
+                editPage.setDescricaoInputText(" ");
+
+                assertNotEquals("", editPage.getDescricaoValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
+
+        @Test
+        @DisplayName("Should not be able to edit superpoder if efeitoColateral input is a empty space")
+        void shouldNotEditSuperpoderIfEfeitoColateralIsEmptySpace() {
+            try {
+                setupGoToEdit();
+
+                editPage.setEfeitosColateraisInputText(" ");
+
+                assertNotEquals("", editPage.getEfeitosColateraisValidationMessage());
+            } catch (UnhandledAlertException ignored) {
+
+                Assertions.fail("Superpoder was edited (alert was triggered)");
+            }
+        }
     }
 
     @Nested
