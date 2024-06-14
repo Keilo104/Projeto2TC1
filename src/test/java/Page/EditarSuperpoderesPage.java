@@ -25,14 +25,18 @@ public class EditarSuperpoderesPage {
         }
     }
 
-    public void clearNomeInput(){
+    public void setNomeInputText(String s){
         this.driver.findElement(nomeDoPoderInput).clear();
+        this.driver.findElement(nomeDoPoderInput).sendKeys(s);
     }
-    public void clearDescricaoInput(){
+    public void setDescricaoInputText(String s){
         this.driver.findElement(descricaoInput).clear();
+        this.driver.findElement(descricaoInput).sendKeys(s);
+
     }
-    public void clearEfeitosColateraisInput(){
+    public void setEfeitosColateraisInputText(String s){
         this.driver.findElement(efeitosColateraisInput).clear();
+        this.driver.findElement(efeitosColateraisInput).sendKeys(s);
     }
 
     public String getNomeDoPoderValidationMessage() {
