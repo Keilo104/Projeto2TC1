@@ -1,5 +1,6 @@
 package page;
 
+import model.Superpoder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -17,7 +18,7 @@ public class EditarSuperpoderesPage {
 
     private final By submitButton = By.xpath("/html/body/div/body/div[2]/div/div/form/div[5]/button");
 
-    public EditarSuperpoderesPage(WebDriver driver){
+    public EditarSuperpoderesPage(WebDriver driver) {
         this.driver = driver;
 
         if (!driver.getCurrentUrl().startsWith("https://site-tc1.vercel.app/editar/")){
@@ -26,22 +27,31 @@ public class EditarSuperpoderesPage {
         }
     }
 
-    public void setNomeInputText(String s){
+    public void setNomeInputText(String s) {
         this.driver.findElement(nomeDoPoderInput).clear();
         this.driver.findElement(nomeDoPoderInput).sendKeys(s);
     }
-    public void setDescricaoInputText(String s){
+
+    public void setDescricaoInputText(String s) {
         this.driver.findElement(descricaoInput).clear();
         this.driver.findElement(descricaoInput).sendKeys(s);
     }
-    public void setEfeitosColateraisInputText(String s){
+
+    public void setEfeitosColateraisInputText(String s) {
         this.driver.findElement(efeitosColateraisInput).clear();
         this.driver.findElement(efeitosColateraisInput).sendKeys(s);
     }
-    public void setNotaSelectValue(String s){
+
+    public void setNotaSelectValue(String s) {
         Select selectNota = new Select(driver.findElement(notaSelect));
         selectNota.selectByValue(s);
+    }
 
+    public void setValuesFromSuperpoder(Superpoder superpoder) {
+        setNomeInputText(superpoder.getNome());
+        setDescricaoInputText(superpoder.getDescricao());
+        setEfeitosColateraisInputText(superpoder.getEfeitosColaterais());
+        setNotaSelectValue(superpoder.getNota());
     }
 
     public String getNomeDoPoderValidationMessage() {
@@ -63,6 +73,7 @@ public class EditarSuperpoderesPage {
     public void goToCadastro() {
         driver.findElement(goToCadastrarPageLink).click();
     }
+
     public void sendEdit() {
         driver.findElement(submitButton).click();
     }

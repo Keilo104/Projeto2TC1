@@ -177,13 +177,11 @@ public class EditarSuperpoderesTest {
                 List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
                 Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+                postEdited.setNome(SuperpoderFakerUtil.getValidNome());
 
                 superpoderesItemPage.getFirst().goToEditPage();
                 editPage = new EditarSuperpoderesPage(driver);
-
-                String editedName = SuperpoderFakerUtil.getValidNome();
-                postEdited.setNome(editedName);
-                editPage.setNomeInputText(editedName);
+                editPage.setValuesFromSuperpoder(postEdited);
                 editPage.sendEdit();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -214,13 +212,11 @@ public class EditarSuperpoderesTest {
                 List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
                 Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+                postEdited.setDescricao(SuperpoderFakerUtil.getValidDescricao());
 
                 superpoderesItemPage.getFirst().goToEditPage();
                 editPage = new EditarSuperpoderesPage(driver);
-
-                String editedDesc = SuperpoderFakerUtil.getValidDescricao();
-                postEdited.setDescricao(editedDesc);
-                editPage.setDescricaoInputText(editedDesc);
+                editPage.setValuesFromSuperpoder(postEdited);
                 editPage.sendEdit();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -251,13 +247,11 @@ public class EditarSuperpoderesTest {
                 List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
                 Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+                postEdited.setEfeitosColaterais(SuperpoderFakerUtil.getValidEfeitosColaterais());
 
                 superpoderesItemPage.getFirst().goToEditPage();
                 editPage = new EditarSuperpoderesPage(driver);
-
-                String editedEfeitoColateral = SuperpoderFakerUtil.getValidEfeitosColaterais();
-                postEdited.setEfeitosColaterais(editedEfeitoColateral);
-                editPage.setEfeitosColateraisInputText(editedEfeitoColateral);
+                editPage.setValuesFromSuperpoder(postEdited);
                 editPage.sendEdit();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -288,13 +282,11 @@ public class EditarSuperpoderesTest {
                 List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
                 Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
                 Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+                postEdited.setNota(SuperpoderFakerUtil.getValidNota());
 
                 superpoderesItemPage.getFirst().goToEditPage();
                 editPage = new EditarSuperpoderesPage(driver);
-
-                String editedNota = SuperpoderFakerUtil.getValidNota();
-                postEdited.setNota(editedNota);
-                editPage.setNotaSelectValue(editedNota);
+                editPage.setValuesFromSuperpoder(postEdited);
                 editPage.sendEdit();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -325,14 +317,11 @@ public class EditarSuperpoderesTest {
                 List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
                 Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
                 Superpoder postEdited = Superpoder.FromFaker();
+                postEdited.setNota(SuperpoderFakerUtil.getValidNota());
 
                 superpoderesItemPage.getFirst().goToEditPage();
                 editPage = new EditarSuperpoderesPage(driver);
-
-                editPage.setNomeInputText(postEdited.getNome());
-                editPage.setDescricaoInputText(postEdited.getDescricao());
-                editPage.setEfeitosColateraisInputText(postEdited.getEfeitosColaterais());
-                editPage.setNotaSelectValue(postEdited.getNota());
+                editPage.setValuesFromSuperpoder(postEdited);
                 editPage.sendEdit();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -368,11 +357,7 @@ public class EditarSuperpoderesTest {
 
                 superpoderItemPage.goToEditPage();
                 editPage = new EditarSuperpoderesPage(driver);
-
-                editPage.setNomeInputText(postEdited.getNome());
-                editPage.setDescricaoInputText(postEdited.getDescricao());
-                editPage.setEfeitosColateraisInputText(postEdited.getEfeitosColaterais());
-                editPage.setNotaSelectValue(postEdited.getNota());
+                editPage.setValuesFromSuperpoder(postEdited);
                 editPage.sendEdit();
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
