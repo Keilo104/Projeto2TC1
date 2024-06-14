@@ -4,7 +4,9 @@ import Model.Superpoder;
 import Page.CadastroSuperpoderPage;
 import Page.ListSuperpoderesPage;
 import Page.SuperpoderItemPage;
+import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Dimension;
@@ -16,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,6 +28,8 @@ public class ListSuperpoderesTest {
 
     private final String PAGE_URL = "https://site-tc1.vercel.app/";
     private ListSuperpoderesPage listPage;
+
+    private final Random random = new Random();
 
     @BeforeEach
     void setup() {
@@ -86,6 +91,36 @@ public class ListSuperpoderesTest {
 
                 softly.assertThat(alertMessage).isEqualTo("Poder excluído com sucesso!");
                 softly.assertThat(superpoderes).isEmpty();
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't deleted");
+            }
+        }
+
+        @Test
+        @DisplayName("Should superpoder be deleted")
+        void shouldSuperpoderBeProperlyDeleted() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderesFromFaker(random.nextInt(10));
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                SuperpoderItemPage superpoderItemPageToBeDeleted = superpoderesItemPage.get(random.nextInt(superpoderesItemPage.size()));
+
+                Superpoder superpoderToBeDeleted = new Superpoder(superpoderItemPageToBeDeleted);
+                superpoderItemPageToBeDeleted.deleteSuperpoder();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder excluído com sucesso!");
+                softly.assertThat(superpoderes).doesNotContain(superpoderToBeDeleted);
 
                 softly.assertAll();
 
