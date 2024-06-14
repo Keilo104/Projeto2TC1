@@ -2,6 +2,7 @@ package Page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class EditarSuperpoderesPage {
     protected WebDriver driver;
@@ -32,11 +33,15 @@ public class EditarSuperpoderesPage {
     public void setDescricaoInputText(String s){
         this.driver.findElement(descricaoInput).clear();
         this.driver.findElement(descricaoInput).sendKeys(s);
-
     }
     public void setEfeitosColateraisInputText(String s){
         this.driver.findElement(efeitosColateraisInput).clear();
         this.driver.findElement(efeitosColateraisInput).sendKeys(s);
+    }
+    public void setNotaSelectValue(String s){
+        Select selectNota = new Select(driver.findElement(notaSelect));
+        selectNota.selectByValue(s);
+
     }
 
     public String getNomeDoPoderValidationMessage() {

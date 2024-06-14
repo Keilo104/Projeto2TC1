@@ -275,6 +275,42 @@ public class EditarSuperpoderesTest {
             }
         }
 
+        @Test
+        @DisplayName("Should superpoderes list have edited superpoder when nota is edited")
+        void shouldSuperpoderesListHaveEditedSuperpoderWhenNotaEdited() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderFromFaker();
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
+                Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+
+                superpoderesItemPage.getFirst().goToEditPage();
+                editPage = new EditarSuperpoderesPage(driver);
+
+                String editedNota = SuperpoderFakerUtil.getValidNota();
+                postEdited.setNota(editedNota);
+                editPage.setNotaSelectValue(editedNota);
+                editPage.sendEdit();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
+                softly.assertThat(superpoderes).contains(postEdited);
+                softly.assertThat(superpoderes).doesNotContain(toBeEdited);
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't Edited");
+            }
+        }
     }
 
     @Nested
