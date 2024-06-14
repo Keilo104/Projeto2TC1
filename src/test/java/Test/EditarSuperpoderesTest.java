@@ -197,9 +197,48 @@ public class EditarSuperpoderesTest {
                 softly.assertAll();
 
             } catch (TimeoutException ignored) {
-                Assertions.fail("Superpoder wasn't deleted");
+                Assertions.fail("Superpoder wasn't Edited");
             }
         }
+
+        @Test
+        @DisplayName("Should superpoderes list have edited superpoder when descricao is edited")
+        void shouldSuperpoderesListHaveEditedSuperpoderWhenDescricaoEdited() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderFromFaker();
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
+                Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+
+                superpoderesItemPage.getFirst().goToEditPage();
+                editPage = new EditarSuperpoderesPage(driver);
+
+                String editedDesc = SuperpoderFakerUtil.getValidDescricao();
+                postEdited.setDescricao(editedDesc);
+                editPage.setDescricaoInputText(editedDesc);
+                editPage.sendEdit();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
+                softly.assertThat(superpoderes).contains(postEdited);
+                softly.assertThat(superpoderes).doesNotContain(toBeEdited);
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't Edited");
+            }
+        }
+
+
     }
 
     @Nested
