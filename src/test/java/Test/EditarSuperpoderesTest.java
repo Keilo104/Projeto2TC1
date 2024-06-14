@@ -238,6 +238,42 @@ public class EditarSuperpoderesTest {
             }
         }
 
+        @Test
+        @DisplayName("Should superpoderes list have edited superpoder when efeitoColateral is edited")
+        void shouldSuperpoderesListHaveEditedSuperpoderWhenEfeitoColateralEdited() {
+            try {
+                SoftAssertions softly = new SoftAssertions();
+
+                cadastroSuperpoderFromFaker();
+
+                List<SuperpoderItemPage> superpoderesItemPage = listPage.getSuperpoderesItemPage();
+                Superpoder toBeEdited = new Superpoder(superpoderesItemPage.getFirst());
+                Superpoder postEdited = new Superpoder(superpoderesItemPage.getFirst());
+
+                superpoderesItemPage.getFirst().goToEditPage();
+                editPage = new EditarSuperpoderesPage(driver);
+
+                String editedEfeitoColateral = SuperpoderFakerUtil.getValidEfeitosColaterais();
+                postEdited.setEfeitosColaterais(editedEfeitoColateral);
+                editPage.setEfeitosColateraisInputText(editedEfeitoColateral);
+                editPage.sendEdit();
+
+                webDriverWait.until(ExpectedConditions.alertIsPresent());
+                String alertMessage = driver.switchTo().alert().getText();
+                driver.switchTo().alert().accept();
+
+                List<Superpoder> superpoderes = listPage.getSuperpoderes();
+
+                softly.assertThat(alertMessage).isEqualTo("Poder atualizado com sucesso!");
+                softly.assertThat(superpoderes).contains(postEdited);
+                softly.assertThat(superpoderes).doesNotContain(toBeEdited);
+
+                softly.assertAll();
+
+            } catch (TimeoutException ignored) {
+                Assertions.fail("Superpoder wasn't Edited");
+            }
+        }
 
     }
 
