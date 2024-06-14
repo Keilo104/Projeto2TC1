@@ -198,7 +198,7 @@ public class CadastroSuperpoderesTest {
 
         @Test
         @DisplayName("Should not be able to create superpoder if efeitos colaterais input is an empty space")
-        void shouldNotCreateSuperpoderIfEfeitosColateraisIsEmptyPath() {
+        void shouldNotCreateSuperpoderIfEfeitosColateraisIsEmptySpace() {
             try {
                 Superpoder superpoder = Superpoder.FromFaker();
                 superpoder.setEfeitosColaterais(" ");
